@@ -1,0 +1,154 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: var(--font-source-serif), ui-serif, Georgia, Cambria, serif;
+  --font-mono: ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas, monospace;
+
+  /* Deep-water brand ramp. */
+  --color-brand-50: #eef8fd;
+  --color-brand-100: #d6eefa;
+  --color-brand-200: #b0ddf3;
+  --color-brand-300: #79c5e9;
+  --color-brand-400: #3ea6d8;
+  --color-brand-500: #1e88bf;
+  --color-brand-600: #146ca1;
+  --color-brand-700: #135783;
+  --color-brand-800: #14486c;
+  --color-brand-900: #143c5a;
+  --color-brand-950: #0a2438;
+
+  /* Aqua accent, used sparingly for emphasis on dark surfaces. */
+  --color-aqua-300: #6ee7d7;
+  --color-aqua-400: #2dd4bf;
+  --color-aqua-500: #14b8a6;
+  --color-aqua-600: #0d9488;
+
+  --color-ink: #0b1a29;
+  --color-ink-soft: #48586a;
+  --color-canvas: #f6f9fb;
+
+  --shadow-card: 0 1px 2px rgba(11, 26, 41, 0.04), 0 8px 24px -12px rgba(11, 26, 41, 0.12);
+  --shadow-lift: 0 2px 4px rgba(11, 26, 41, 0.04), 0 18px 42px -18px rgba(11, 26, 41, 0.22);
+
+  --animate-rise: rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-brand-200);
+    color: var(--color-brand-950);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@utility text-balance-tight {
+  text-wrap: balance;
+}
+
+/* Faint contour texture used behind dark hero sections. */
+@utility bg-contour {
+  background-image:
+    radial-gradient(circle at 18% 12%, rgba(45, 212, 191, 0.16), transparent 42%),
+    radial-gradient(circle at 82% 0%, rgba(62, 166, 216, 0.22), transparent 48%),
+    repeating-linear-gradient(
+      115deg,
+      rgba(255, 255, 255, 0.035) 0px,
+      rgba(255, 255, 255, 0.035) 1px,
+      transparent 1px,
+      transparent 22px
+    );
+}
+
+@utility bg-grid-soft {
+  background-image:
+    linear-gradient(to right, rgba(20, 72, 108, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(20, 72, 108, 0.06) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Print: the report page has to come out looking like a real document.    */
+/* ---------------------------------------------------------------------- */
+
+@media print {
+  @page {
+    size: letter;
+    margin: 0.5in;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  .print-plain {
+    box-shadow: none !important;
+    border-color: #d4dde5 !important;
+    background: #fff !important;
+  }
+
+  .print-break-before {
+    break-before: page;
+  }
+
+  .print-avoid-break {
+    break-inside: avoid;
+  }
+
+  a[href]::after {
+    content: "";
+  }
+}
+
+.print-only {
+  display: none;
+}
