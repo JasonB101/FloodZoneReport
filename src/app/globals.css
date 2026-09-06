@@ -46,8 +46,12 @@
 }
 
 @layer base {
+  /*
+   * No `scroll-behavior: smooth` on <html>: Next.js warns that it interferes
+   * with scroll restoration on route transitions. Anchor jumps land instantly
+   * and `scroll-mt-*` keeps them clear of the sticky header.
+   */
   html {
-    scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
   }
 

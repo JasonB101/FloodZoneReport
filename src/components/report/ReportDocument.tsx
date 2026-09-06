@@ -144,7 +144,7 @@ export function ReportDocument({ report }: { report: FloodReport }) {
 
       {/* Narrative */}
       <Section title="What this means for this property" step="01">
-        <p className="text-[0.9375rem] leading-relaxed text-ink sm:text-base">
+        <p className="max-w-[46rem] text-[0.9375rem] leading-relaxed text-ink sm:text-base">
           {report.narrative.whatThisMeans}
         </p>
         <div className="mt-4 rounded-xl border border-slate-200 bg-canvas p-4">
@@ -241,7 +241,7 @@ export function ReportDocument({ report }: { report: FloodReport }) {
           </p>
         </div>
 
-        <p className="mt-5 text-[0.9375rem] leading-relaxed text-ink sm:text-base">
+        <p className="mt-5 max-w-[46rem] text-[0.9375rem] leading-relaxed text-ink sm:text-base">
           {report.narrative.insurancePlain}
         </p>
 
@@ -253,10 +253,10 @@ export function ReportDocument({ report }: { report: FloodReport }) {
 
       {/* Buying */}
       <Section title="If you are buying or refinancing" step="06">
-        <p className="text-[0.9375rem] leading-relaxed text-ink sm:text-base">
+        <p className="max-w-[46rem] text-[0.9375rem] leading-relaxed text-ink sm:text-base">
           {report.narrative.ifYouAreBuying}
         </p>
-        <ol className="mt-5 space-y-3">
+        <ol className="mt-5 max-w-[46rem] space-y-3">
           {report.narrative.nextSteps.map((step, index) => (
             <li key={step} className="flex gap-3.5">
               <span className="mt-0.5 inline-flex size-6 shrink-0 items-center justify-center rounded-full bg-brand-600 text-[0.75rem] font-semibold text-white">
@@ -270,7 +270,7 @@ export function ReportDocument({ report }: { report: FloodReport }) {
 
       {/* History */}
       <Section title="Local flood history" step="07">
-        <ol className="relative space-y-5 border-l border-slate-200 pl-6">
+        <ol className="relative max-w-[46rem] space-y-5 border-l border-slate-200 pl-6">
           {report.history.map((event) => (
             <li key={`${event.year}-${event.event}`} className="print-avoid-break">
               <span className="absolute -left-[5px] mt-1.5 size-2.5 rounded-full bg-brand-500 ring-4 ring-white" />
@@ -305,7 +305,7 @@ export function ReportDocument({ report }: { report: FloodReport }) {
 
       {/* Methodology */}
       <Section title="Methodology and sources" step="09" last>
-        <dl className="space-y-4 text-[0.875rem] leading-relaxed">
+        <dl className="max-w-[46rem] space-y-4 text-[0.875rem] leading-relaxed">
           <div>
             <dt className="font-semibold text-ink">In this demo build</dt>
             <dd className="mt-1 text-ink-soft">{DISCLAIMER.demo}</dd>

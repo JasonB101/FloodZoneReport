@@ -551,27 +551,60 @@ export function zoneDisplayLabel(zone: ZoneDefinition): string {
 }
 
 /**
+ * Street-type suffixes and other tokens that appear in so many addresses that
+ * matching on them alone means nothing. "999 Fake Street" must not resolve to a
+ * sample just because both contain the word "street".
+ */
+const GENERIC_TOKENS = new Set([
+  "street", "st", "drive", "dr", "road", "rd", "avenue", "ave", "lane", "ln",
+  "boulevard", "blvd", "walk", "way", "court", "ct", "place", "pl", "circle",
+  "cir", "terrace", "trail", "trl", "highway", "hwy", "parkway", "pkwy",
+  "north", "south", "east", "west", "usa", "us", "unit", "apt", "suite",
+  "city", "town", "county", "parish", "of",
+]);
+
+const tokenize = (value: string) =>
+  value
+    .toLowerCase()
+    .split(/[\s,.]+/)
+    .filter((token) => token.length > 1 && !GENERIC_TOKENS.has(token));
+
+/**
  * Loose matcher for the demo lookup field. Real geocoding is out of scope in
- * demo mode, so we score the query against street, city, state, and ZIP tokens
- * and return the best sample above a low threshold.
+ * demo mode, so we match query tokens against each sample's own tokens.
+ *
+ * A match requires at least one "strong" hit — house number, street name, city,
+ * or ZIP. State and county tokens only break ties, because matching "TX" alone
+ * should not confidently return a Houston property.
  */
 export function matchAddress(query: string): FloodReport | undefined {
-  const normalized = query.trim().toLowerCase();
-  if (normalized.length < 3) return undefined;
-
-  const tokens = normalized.split(/[\s,]+/).filter((t) => t.length > 1);
+  const tokens = tokenize(query);
   if (tokens.length === 0) return undefined;
 
-  let best: { report: FloodReport; score: number } | undefined;
+  let best: { report: FloodReport; strong: number; score: number } | undefined;
 
   for (const report of DEMO_REPORTS) {
-    const haystack = `${formatAddress(report.address)} ${report.county} ${report.community}`.toLowerCase();
-    let score = 0;
+    const strongTokens = new Set([
+      ...tokenize(report.address.line1),
+      ...tokenize(report.address.city),
+      report.address.zip,
+    ]);
+    const weakTokens = new Set([
+      report.address.state.toLowerCase(),
+      ...tokenize(report.county),
+      ...tokenize(report.community),
+    ]);
+
+    let strong = 0;
+    let weak = 0;
     for (const token of tokens) {
-      if (haystack.includes(token)) score += token.length;
+      if (strongTokens.has(token)) strong += 1;
+      else if (weakTokens.has(token)) weak += 1;
     }
-    if (!best || score > best.score) best = { report, score };
+
+    const score = strong * 2 + weak;
+    if (!best || score > best.score) best = { report, strong, score };
   }
 
-  return best && best.score >= 4 ? best.report : undefined;
+  return best && best.strong >= 1 ? best.report : undefined;
 }

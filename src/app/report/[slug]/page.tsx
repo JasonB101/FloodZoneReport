@@ -44,7 +44,7 @@ export default async function ReportPage({ params }: PageProps) {
     <>
       {/* Action bar */}
       <div className="no-print sticky top-16 z-30 border-b border-slate-200 bg-white/85 backdrop-blur-xl">
-        <Container width="lg" className="flex flex-wrap items-center justify-between gap-3 py-3">
+        <Container width="md" className="flex flex-wrap items-center justify-between gap-3 py-3">
           <nav aria-label="Breadcrumb" className="min-w-0">
             <ol className="flex min-w-0 items-center gap-1.5 text-[0.8125rem] text-ink-soft">
               <li>
@@ -63,14 +63,14 @@ export default async function ReportPage({ params }: PageProps) {
       </div>
 
       <section className="bg-canvas py-8 sm:py-10">
-        <Container width="lg">
+        <Container width="md">
           <ReportDocument report={report} />
         </Container>
       </section>
 
       {/* Post-report upsell + navigation */}
       <section className="no-print border-t border-slate-200 bg-white py-14 sm:py-16">
-        <Container width="lg">
+        <Container width="md">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:gap-12">
             <div>
               <h2 className="font-serif text-2xl leading-tight tracking-tight text-ink sm:text-[1.75rem]">

@@ -25,7 +25,7 @@ export default async function CheckoutSuccessPage({ searchParams }: PageProps) {
     <section className="bg-canvas py-12 sm:py-16">
       <Container width="lg">
         <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-lift">
-          <div className="border-b border-slate-200 bg-gradient-to-br from-brand-950 to-brand-800 bg-contour px-7 py-9 sm:px-10 sm:py-11">
+          <div className="border-b border-slate-200 bg-brand-950 bg-contour px-7 py-9 sm:px-10 sm:py-11">
             <span className="inline-flex size-12 items-center justify-center rounded-2xl bg-aqua-400/15 ring-1 ring-aqua-400/40">
               <svg viewBox="0 0 24 24" className="size-6 text-aqua-300" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M5 12.5l4.5 4.5L19 7" />
